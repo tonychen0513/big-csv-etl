@@ -143,9 +143,9 @@ void CAnalyzerReducer::reducerTask()
                 cout << "Reducer start working!\n";
 
                 // Start to write to the output JSON file
-                //fsResultJsonFile.open(m_outputFileName, ios::out | ios::app);
-                //fsResultJsonFile << "{\n";
-                //fsResultJsonFile << "\"array\":[\n";
+                fsResultJsonFile.open(m_outputFileName, ios::out | ios::app);
+                fsResultJsonFile << "{\n";
+                fsResultJsonFile << "\"array\":[\n";
 
                 while (!minPQ.empty())
                 {
@@ -174,23 +174,20 @@ void CAnalyzerReducer::reducerTask()
                     // Write the cached result to file if it's bigger than 100MB
                     if (result.size() > 100000000 || minPQ.empty())
                     {
-                        cout << "(" << m_sumProperty2 << "," << m_numItems << ")" << round(m_sumProperty2 / m_numItems * 1000.0) / 1000.0 << endl;
-                        //    cout << "Write data to output. Size: " << result.size() << "\n";
-                        //    fsResultJsonFile << result;
-                        //    fsResultJsonFile.flush();
+                        cout << "Write data to output. Size: " << result.size() << "\n";
+                        fsResultJsonFile << result;
+                        fsResultJsonFile.flush();
                         result.clear();
-                        //    cout << "Done writing data to output \n";
+                        cout << "Done writing data to output \n";
                     }
                 }
 
-                cout << "Final: (" << m_sumProperty2 << "," << m_numItems << ")" << round(m_sumProperty2 / m_numItems * 1000.0) / 1000.0 << endl;
-
                 // Append the final object with average of property 2
-                //appendFinalAverageObject(fsResultJsonFile);
+                appendFinalAverageObject(fsResultJsonFile);
 
-                //fsResultJsonFile << "]\n";
-                //fsResultJsonFile << "}\n";
-                //fsResultJsonFile.close();
+                fsResultJsonFile << "]\n";
+                fsResultJsonFile << "}\n";
+                fsResultJsonFile.close();
             }
             catch (const std::exception &e)
             {
