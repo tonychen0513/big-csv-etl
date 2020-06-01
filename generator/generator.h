@@ -6,7 +6,7 @@ using namespace std;
 class CGenerator
 {
 public:
-    CGenerator(string fileName) : m_fileName(fileName), m_gen(m_rd()), m_gen1(m_rd()) {}
+    CGenerator(string fileName) : m_fileName(fileName), m_gen(m_rd()) {}
     void start();
 
 private:
@@ -18,7 +18,6 @@ private:
     // Members to generate random numbers
     random_device m_rd;
     mt19937 m_gen;
-    mt19937 m_gen1;
 
     string generateA();
     string generateNumericString(int wholeNumberLength, int maxDecimalPlaces);
